@@ -1,0 +1,133 @@
+const CSS_CONTENT = `
+.notion-header__cover.no-cover {
+    max-height: 80px;
+}
+.notion-header__content.no-cover .notion-header__title-wrapper {
+    margin-top: 84px;
+}
+.notion-header__icon-wrapper.no-cover.has-icon-image {
+    top: -140px;
+}
+.notion-root.has-footer {
+    padding-bottom: 3vh;
+}
+.giscus {
+    margin-top: 3vh;
+}
+.super-footer {
+    padding-top: 0;
+}
+.super-footer__icons {
+    margin-bottom: 8px;
+}
+.super-badge {
+    display:none;
+}
+`;
+
+const JS_CONTENT = `
+function onNagivateCompleted() {
+  var giscusDiv = document.createElement("div");
+  giscusDiv.className = "giscus";
+  if (!document.querySelector(".giscus")) {
+      document.querySelector("article").append(giscusDiv);
+  }
+
+  var script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.setAttribute("data-repo", "0chil/blog");
+  script.setAttribute("data-repo-id", "R_kgDOMInk_w");
+  script.setAttribute("data-category", "General");
+  script.setAttribute("data-category-id", "DIC_kwDOMInk_84CgDAX");
+  script.setAttribute("data-mapping", "pathname");
+  script.setAttribute("data-strict", "0");
+  script.setAttribute("data-reactions-enabled", "1");
+  script.setAttribute("data-emit-metadata", "0");
+  script.setAttribute("data-input-position", "bottom");
+  script.setAttribute("data-theme", "preferred_color_scheme");
+  script.setAttribute("data-lang", "ko");
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+  document.head.appendChild(script);
+
+  const links = document.querySelectorAll("a.notion-link");
+  links.forEach(link => {
+    const href = link.getAttribute("href");
+    if (href && href.startsWith("/")) {
+      window.next.router.prefetch(href);
+    }
+  });
+}
+const originalPushState = history.pushState;
+const originalReplaceState = history.replaceState;
+
+history.pushState = function(state) {
+  const result = originalPushState.apply(history, arguments);
+  setTimeout(onNagivateCompleted, 1000);
+  return result;
+};
+history.replaceState = function(state) {
+  const result = originalReplaceState.apply(history, arguments);
+  setTimeout(onNagivateCompleted, 1000);
+  return result;
+};
+
+document.addEventListener("DOMContentLoaded", ()=>setTimeout(onNagivateCompleted, 1000));
+`;
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    switch (url.pathname) {
+      case '/custom.css': return new Response(CSS_CONTENT, { headers: { 'Content-Type': 'text/css' } });
+      case '/custom.js': return new Response(JS_CONTENT, { headers: { 'Content-Type': 'text/javascript' } });
+      case '/robots.txt': return this.handleRobots(env);
+      case '/sitemap.xml': return this.handleSitemaps(request, env);
+      default: return this.handleProxyRequest(request, env);
+    }
+  },
+
+  async handleRobots(env) {
+    return new Response(`User-agent: *
+Disallow:
+Disallow: /api
+Disallow: /_next
+Allow: /_next/static/css
+Sitemap: https://${env.SERVE_DOMAIN}/sitemap.xml`, { headers: { 'Content-Type': 'text/javascript' } });
+  },
+
+  async handleSitemaps(request, env) {
+    const proxyUrl = new URL(request.url);
+    proxyUrl.hostname = env.TARGET_DOMAIN;
+
+    let response = await fetch(proxyUrl.toString(), {
+      headers: request.headers,
+      method: request.method,
+      body: request.body,
+    });
+
+    let text = await response.text();
+    text = text.replaceAll(env.TARGET_DOMAIN, env.SERVE_DOMAIN);
+    return new Response(text, response);
+  },
+
+  async handleProxyRequest(request, env) {
+    const proxyUrl = new URL(request.url);
+    proxyUrl.hostname = env.TARGET_DOMAIN;
+
+    let response = await fetch(proxyUrl.toString(), {
+      headers: request.headers,
+      method: request.method,
+      body: request.body,
+    });
+
+    if (response.headers.get('content-type')?.includes('text/html')) {
+      let text = await response.text();
+      text = text.replace('</head>', '<link rel="stylesheet" href="/custom.css"></head>')
+        .replace('</body>', '<script type="text/javascript" src="/custom.js"></script></body>');
+      return new Response(text, response);
+    }
+    return response;
+  }
+};
