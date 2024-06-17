@@ -26,6 +26,18 @@ const CUSTOM_CSS = `
 .super-badge {
     display:none;
 }
+.notion-collection-list {
+    border-top: none;
+    padding-top: 0px;
+}
+.notion-collection-group__section.open:not(.board) {
+    margin-bottom: 0;
+}
+.notion-collection-group__section-header:not(.no-border) {
+    border-top: 0;
+    padding-top: 0px;
+    padding-bottom: 8px;
+}
 `;
 
 export default {
@@ -99,7 +111,7 @@ Sitemap: https://${env.SERVE_DOMAIN}/sitemap.xml`, { headers: { 'Content-Type': 
         }
       });
     }
-      
+
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
     history.pushState = function(state) {
