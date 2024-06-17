@@ -17,6 +17,9 @@ const CUSTOM_CSS = `
 .notion-root.has-footer {
     padding-bottom: 3vh;
 }
+.notion-breadcrumb, .notion-breadcrumb > :first-child {
+    min-width: 0;
+}
 .notion-pill {
     font-size: .875rem;
 }
