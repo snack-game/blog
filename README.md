@@ -6,19 +6,13 @@
 
 ### 방법 1 - CloudFlare Worker 사용
 
-> [!WARNING]  
+> [!NOTE]  
 > 커스텀 도메인을 사용하려면 CloudFlare에 도메인을 먼저 등록해야 합니다
 
+[Details]: https://chll.it/%EB%85%B8%EC%85%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A5%BC-%EC%93%B8%EB%A7%8C%ED%95%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8%EB%A1%9C
+[<kbd> <br> 🔗 자세한 글 보기<br> </kbd>][Details]  
+
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/0chil/blog)
-#### 환경변수
-| 변수명 | 값 | 비고 |
-| --- | --- | --- |
-| TARGET_DOMAIN | super.so 도메인 |  |
-| SERVE_DOMAIN | 블로그 도메인 | 커스텀 도메인이 없으면 기본 도메인 사용 |
-| GISCUS_REPO | 댓글창 레포지터리 | [giscus.app](https://giscus.app) 에서 생성 가능 |
-| GISCUS_REPO_ID | 댓글창 레포지터리 ID | [giscus.app](https://giscus.app) 에서 생성 가능 |
-| GISCUS_CATEGORY | 댓글창 카테고리 | [giscus.app](https://giscus.app) 에서 생성 가능 |
-| GISCUS_CATEGORY_ID | 댓글창 카테고리 ID | [giscus.app](https://giscus.app) 에서 생성 가능 |
 
 ### 방법 2 - NGINX 사용
 
