@@ -1,23 +1,24 @@
 const CUSTOM_CSS = `
 .notion-header__cover.no-cover {
-    max-height: 80px;
+    max-height: 40px;
 }
 .notion-header__content.no-cover .notion-header__title-wrapper {
     margin-top: 84px;
 }
 .notion-header__icon-wrapper.no-cover.has-icon-image {
-    top: -140px;
+    top: -160px;
 }
 .notion-root.has-footer {
     padding-bottom: 3vh;
 }
 .giscus {
-	max-width: var(--layout-max-width);
-	margin-left: auto;
-	margin-right: auto;
+	  border-top: var(--divider-border);
+    padding-top: 3vh;
+    margin-top: 3vh;
 }
 .super-footer {
-    padding-top: 0 !important;
+    padding-top: 3vh;
+    pading-bottom: 3vh;
 }
 .super-footer__icons {
     margin-bottom: 8px;
@@ -70,7 +71,7 @@ Sitemap: https://${env.SERVE_DOMAIN}/sitemap.xml`, { headers: { 'Content-Type': 
       var giscusDiv = document.createElement("div");
       giscusDiv.className = "giscus";
       if (!document.querySelector(".giscus")) {
-          document.querySelector("footer").prepend(giscusDiv);
+          document.querySelector("article").appendChild(giscusDiv);
       }
     
       var script = document.createElement("script");
@@ -98,21 +99,21 @@ Sitemap: https://${env.SERVE_DOMAIN}/sitemap.xml`, { headers: { 'Content-Type': 
         }
       });
     }
+      
     const originalPushState = history.pushState;
     const originalReplaceState = history.replaceState;
-    
     history.pushState = function(state) {
       const result = originalPushState.apply(history, arguments);
-      setTimeout(onNagivateCompleted, 300);
+      setTimeout(onNagivateCompleted, 500);
       return result;
     };
     history.replaceState = function(state) {
       const result = originalReplaceState.apply(history, arguments);
-      setTimeout(onNagivateCompleted, 300);
+      setTimeout(onNagivateCompleted, 500);
       return result;
     };
     
-    document.addEventListener("DOMContentLoaded", ()=>setTimeout(onNagivateCompleted, 300));
+    document.addEventListener("DOMContentLoaded", ()=>setTimeout(onNagivateCompleted, 500));
     `, { headers: { 'Content-Type': 'text/javascript' } });
   },
 

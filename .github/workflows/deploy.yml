@@ -15,6 +15,12 @@ jobs:
       - name: Specify project name
         run: |
           sed -i 's\${PROJECT_NAME}\${{ github.repository_owner }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${TARGET_DOMAIN}\${{ vars.TARGET_DOMAIN }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${SERVE_DOMAIN}\${{ vars.SERVE_DOMAIN }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${GISCUS_REPO}\${{ vars.GISCUS_REPO }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${GISCUS_REPO_ID}\${{ vars.GISCUS_REPO_ID }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${GISCUS_CATEGORY}\${{ vars.GISCUS_CATEGORY }}\g' cloudflare-worker/wrangler.toml
+          sed -i 's\${GISCUS_CATEGORY_ID}\${{ vars.GISCUS_CATEGORY_ID }}\g' cloudflare-worker/wrangler.toml
           
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
