@@ -18,7 +18,10 @@ const CUSTOM_CSS = `
 }
 .super-footer {
     padding-top: 3vh;
-    pading-bottom: 3vh;
+    padding-bottom: 3vh;
+}
+a.super-footer__logo:has(span:empty) {
+    display: none;
 }
 .super-footer__icons {
     margin-bottom: 8px;
