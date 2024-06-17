@@ -2,11 +2,17 @@ const CUSTOM_CSS = `
 .notion-header__cover.no-cover {
     max-height: 40px;
 }
+.notion-header__cover.no-cover:has(+ .notion-header__icon-wrapper.no-cover.has-icon-image) {
+    max-height: 20px;
+}
 .notion-header__content.no-cover .notion-header__title-wrapper {
     margin-top: 84px;
 }
 .notion-header__icon-wrapper.no-cover.has-icon-image {
-    top: -160px;
+    top: -144px;
+}
+.notion-header__icon-wrapper.no-cover.has-icon {
+    top: -94px;
 }
 .notion-root.has-footer {
     padding-bottom: 3vh;
