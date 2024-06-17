@@ -38,6 +38,9 @@ const CUSTOM_CSS = `
     padding-top: 0px;
     padding-bottom: 8px;
 }
+.notion-toggle:has(h3 > del) {
+    display: none;
+}
 `;
 
 export default {
