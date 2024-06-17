@@ -17,6 +17,9 @@ const CUSTOM_CSS = `
 .notion-root.has-footer {
     padding-bottom: 3vh;
 }
+.notion-pill {
+    font-size: .875rem;
+}
 .giscus {
 	  border-top: var(--divider-border);
     padding-top: 3vh;
