@@ -1,4 +1,4 @@
-// document.addEventListener('onNagivateCompleted', initializeGiscus); // Giscus를 사용하려면 주석을 제거하세요
+document.addEventListener('onNagivateCompleted', initializeGiscus);
 function initializeGiscus() {
     var giscusDiv = document.createElement("div");
     giscusDiv.className = "giscus";
@@ -8,10 +8,10 @@ function initializeGiscus() {
 
     var script = document.createElement("script");
     script.src = "https://giscus.app/client.js";
-    script.setAttribute("data-repo", ""); // 여기서부터 Giscus 정보를 입력하세요
-    script.setAttribute("data-repo-id", "");
-    script.setAttribute("data-category", "");
-    script.setAttribute("data-category-id", "");
+    script.setAttribute("data-repo", "snack-game/blog-comments");
+    script.setAttribute("data-repo-id", "R_kgDOK3Nq-Q");
+    script.setAttribute("data-category", "Comments");
+    script.setAttribute("data-category-id", "DIC_kwDOK3Nq-c4CblXz");
     script.setAttribute("data-mapping", "pathname");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
