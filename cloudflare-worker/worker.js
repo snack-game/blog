@@ -50,8 +50,8 @@ export default {
       const text = await response.text();
       return new Response(text.replace('</head>', '<link rel="stylesheet" href="/customized.common.css"><link rel="stylesheet" href="/customized.per-site.css"></head>')
         .replace('</body>',
-          '<script type="text/javascript" src="/onNavigateCompleted.js"></script>' +
           '<script type="text/javascript" src="/giscus.js"></script>' +
+          '<script type="text/javascript" src="/onNavigateCompleted.js"></script>' +
           '<script type="text/javascript" src="/customized.per-site.js"></script></body>')
         .replace(new RegExp('<meta name="robots" content="noindex, nofollow".+/>'), ''),
         response

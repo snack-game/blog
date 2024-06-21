@@ -1,5 +1,5 @@
 function onNagivateCompleted() {
-    dispatchEvent(new Event('onNagivateCompleted'));
+    document.dispatchEvent(new Event('onNagivateCompleted'));
     const links = document.querySelectorAll("a.notion-link");
     links.forEach(link => {
         const href = link.getAttribute("href");
