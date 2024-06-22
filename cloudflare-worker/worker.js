@@ -11,6 +11,7 @@ export default {
         case '/customized.common.css':
         case '/onNavigateCompleted.js':
         case '/giscus.js':
+        case '/google-analytics.js':
         case '/customized.per-site.css':
         case '/customized.per-site.js':
           return await getAssetFromKV(
@@ -51,6 +52,7 @@ export default {
       return new Response(text.replace('</head>', '<link rel="stylesheet" href="/customized.common.css"><link rel="stylesheet" href="/customized.per-site.css"></head>')
         .replace('</body>',
           '<script type="text/javascript" src="/giscus.js"></script>' +
+          '<script type="text/javascript" src="/google-analytics.js"></script>' +
           '<script type="text/javascript" src="/onNavigateCompleted.js"></script>' +
           '<script type="text/javascript" src="/customized.per-site.js"></script></body>')
         .replace(new RegExp('<meta name="robots" content="noindex, nofollow".+/>'), ''),
