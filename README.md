@@ -12,7 +12,8 @@
 [Details]: https://chll.it/%EB%85%B8%EC%85%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A5%BC-%EC%93%B8%EB%A7%8C%ED%95%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8%EB%A1%9C
 [<kbd> <br> 🔗 자세한 글 보기<br> </kbd>][Details]  
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/0chil/blog)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/0chil/notion-as-a-blog)
+
 
 ### 방법 2 - NGINX 사용
 
