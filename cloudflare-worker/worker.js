@@ -11,6 +11,7 @@ export default {
         case '/customized.common.css':
         case '/onNavigateCompleted.js':
         case '/giscus.js':
+        case '/google-analytics.js':
         case '/customized.per-site.css':
         case '/customized.per-site.js':
           return await getAssetFromKV(
@@ -40,24 +41,27 @@ export default {
     const proxyUrl = new URL(request.url);
     proxyUrl.hostname = env.TARGET_DOMAIN;
 
-    const response = await fetch(proxyUrl.toString(), {
+    const originalResponse = await fetch(proxyUrl.toString(), {
       headers: request.headers,
       method: request.method,
       body: request.body,
     });
 
-    if (response.headers.get('content-type')?.includes('text/html')) {
-      const text = await response.text();
-      return new Response(text.replace('</head>', '<link rel="stylesheet" href="/customized.common.css"><link rel="stylesheet" href="/customized.per-site.css"></head>')
+    if (originalResponse.headers.get('content-type')?.includes('text/html')) {
+      const body = await originalResponse.text();
+      const modifiedBody = body
+        .replace('</head>', '<link rel="stylesheet" href="/customized.common.css"><link rel="stylesheet" href="/customized.per-site.css"></head>')
         .replace('</body>',
           '<script type="text/javascript" src="/giscus.js"></script>' +
+          '<script type="text/javascript" src="/google-analytics.js"></script>' +
           '<script type="text/javascript" src="/onNavigateCompleted.js"></script>' +
           '<script type="text/javascript" src="/customized.per-site.js"></script></body>')
-        .replace(new RegExp('<meta name="robots" content="noindex, nofollow".+/>'), ''),
-        response
-      );
+        .replace(new RegExp('<meta name="robots" content="noindex, nofollow".+/>'), '')
+        .replace(/\[\\"\$\\",\s*\\"meta\\",\s*\\"\d\\",\s*\{\\"name\\":\s*\\"robots\\",\s*\\"content\\":\s*\\"noindex,\s*nofollow\\"\}\]\,/, '')
+
+      return new Response(modifiedBody, originalResponse);
     }
-    return response;
+    return originalResponse;
   },
 
   async proxySitemaps(request, env) {
