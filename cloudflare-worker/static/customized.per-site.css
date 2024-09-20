@@ -1,1 +1,4 @@
 /* 아래에 사이트 별 커스텀 스타일을 적어주세요 */
+.notion-property__person {
+  gap: 8px;
+}
