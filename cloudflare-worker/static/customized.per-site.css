@@ -10,3 +10,7 @@
 .notion-header__cover.no-cover {
   max-height: 64px;
 }
+
+.super-navbar__search {
+  display: flex !important;
+}
